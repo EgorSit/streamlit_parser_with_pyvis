@@ -130,7 +130,7 @@ if st.session_state["option_menu"] == "Создать модель":
                     stop()
 
         else:
-            st.error("Адрес, который вы ввели, не является верным. Пожалуйста, попробуйте ввести другой адерс")
+            st.error("Адрес, который вы ввели, не является верным. Пожалуйста, попробуйте ввести другой адрес")
             st.session_state["validation_passed"] = False  # Адрес не прошел валидацию
 
     if st.session_state["stage"] == "finale":
@@ -277,7 +277,7 @@ if st.session_state["option_menu"] == "Расширить модель":
         if button_expand:
 
             with st.form(key="handle"):
-                button_stop = st.form_submit_button("Остановить сбор данных", on_click=stop)
+                button_stop = st.form_submit_button("Остановить расширение модели", on_click=stop)
                 #st.session_state["button_stop"] = False
                 line = [[0, st.session_state["expand_address"]]]  # Конвеерная лента для страниц
                 network_base = st.session_state["network_base"]
@@ -303,4 +303,4 @@ if st.session_state["option_menu"] == "Расширить модель":
     if st.session_state["network"]:
         pv_static(st.session_state["network"])
 
-st.write(st.session_state)
+#st.write(st.session_state)
