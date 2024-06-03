@@ -1,1 +1,10 @@
-
+streamlit
+streamlit_option_menu
+stvis
+validators
+time
+requests
+bs4
+validators
+yake
+pyvis
