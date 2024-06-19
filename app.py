@@ -3,6 +3,7 @@ from streamlit_option_menu import option_menu
 from stvis import pv_static
 from validators import url
 from time import sleep
+import pyvis
 import script
 
 st.set_page_config(layout="wide")
@@ -257,19 +258,20 @@ if "expand_address" not in st.session_state:
 if "not_expanded" not in st.session_state:
     st.session_state["not_expanded"] = False
 
-def get_not_expanded(nb):
+def get_not_expanded(net):
     not_expanded = []
 
-    for link in list(nb[0].keys()):
-        if link not in list(nb[1].values()):
+    for link in net.get_nodes():
+        if link not in (row["from"] for row in net.get_edges()):
             not_expanded.append(link)
 
     return not_expanded
 
 if st.session_state["option_menu"] == "Расширить модель":
-    if (st.session_state["option_menu_expand"] or st.session_state["option_menu_create"]) and st.session_state["network_base"]:
+    if (st.session_state["option_menu_expand"] or st.session_state["option_menu_create"] or st.session_state["option_menu_upload"]) and st.session_state["network_base"]:
 
-        st.session_state["not_expanded"] = get_not_expanded(st.session_state["network_base"])
+        st.session_state["not_expanded"] = get_not_expanded(st.session_state["network"])
+
         with st.form(key="uploadation"):
             st.session_state["expand_address"] = st.selectbox("Выберите узел модели для расширения:", st.session_state["not_expanded"])
             button_expand = st.form_submit_button("Расширить модель", on_click=start)
@@ -303,4 +305,4 @@ if st.session_state["option_menu"] == "Расширить модель":
     if st.session_state["network"]:
         pv_static(st.session_state["network"])
 
-#st.write(st.session_state)
+st.write(st.session_state)

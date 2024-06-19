@@ -354,7 +354,7 @@ def do_scrap_handly(level, URI, line, network_base, MAX_LEVEL=1):
 # Функция для создания графа (pyvis)
 def make_graph(network_base):
     # Создаём объект граф
-    net = pyvis.network.Network(notebook=True, height="900px", width="1600", select_menu=False, filter_menu=False, directed=True)
+    net = pyvis.network.Network(notebook=False, height='900px', width='1400px', select_menu=False, filter_menu=True, directed=True, cdn_resources='remote')
 
     # Добавляем в объект узлы
     length = len(network_base[0])
@@ -364,17 +364,24 @@ def make_graph(network_base):
         elif list(network_base[0].values())[i][1] == '':
             net.add_node(list(network_base[0].keys())[i], label=list(network_base[0].values())[i][0], title=list(network_base[0].keys())[i], color="rgba(80, 80, 80, 1)")
         else:
-            net.add_node(list(network_base[0].keys())[i], label=list(network_base[0].keys())[i], title=list(network_base[0].values())[i][0], shape='image', image=list(network_base[0].values())[i][1], color="rgba(2, 94, 161, 0.8)")
+            main_title = list(network_base[0].values())[i][0][:list(network_base[0].values())[i][0].find('\n', 1)].replace('\n', '').strip()
+            if main_title != '':
+                main_title += '\n'
+            net.add_node(list(network_base[0].keys())[i], label=main_title+list(network_base[0].keys())[i], title=list(network_base[0].values())[i][0], shape='image', image=list(network_base[0].values())[i][1], color="rgba(2, 94, 161, 0.8)")
     #net.add_nodes(list(network_base[0].keys()), label=list(network_base[0].values()), title=list(network_base[0].keys()), color=["rgba(125, 125, 125, 1)"] * len(list(network_base[0].values())))
 
     # Добавляем в объект связи
     try:
-        indx = 0
         for key, val in network_base[1].items():
-            net.add_edge(val, key, width=3)
-            indx += 1
+            try:
+                net.add_edge(val, key, width=3)
+            except:
+                pass
     except Exception as e:
-        network_base[1] = dict(list(network_base[1].items())[:indx])
+        print(e)
+#        st.write(point)
+#        st.write(list(network_base[1].items())[:indx])
+#        network_base[1] = dict(list(network_base[1].items())[:indx])
 
     # vizualise options
     net.set_options("""
