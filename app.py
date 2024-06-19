@@ -305,4 +305,4 @@ if st.session_state["option_menu"] == "Расширить модель":
     if st.session_state["network"]:
         pv_static(st.session_state["network"])
 
-st.write(st.session_state)
+#st.write(st.session_state)
