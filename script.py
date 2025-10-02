@@ -44,7 +44,7 @@ def get_standart_URI(URI):
     return stand
 
 
-# Проверка по правилу: веб-страница обязаетльно html или php или директория
+# Проверка по правилу: веб-страница обязательно html или php или директория
 def true_web_file(URI, flag=False):
     no_protocol = URI[URI.find('//') + 2:]
     if no_protocol.find('/') != -1:
@@ -81,7 +81,7 @@ def get_title(soup, URI):
             return "Неизветсная страница"
 
 
-# Получаем список ключпевых слов с помощью yake
+# Получаем список ключевых слов с помощью yake
 def get_plot(soup):
     if isinstance(soup, str):
         text = soup
@@ -420,3 +420,4 @@ def make_graph(network_base):
     #net.show(f"graph_model.html", notebook=False)
     #net.save_graph(f"graph_model.html")
     return net
+
