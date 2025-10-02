@@ -69,7 +69,7 @@ navigation_menu = option_menu(
 
 
 
-# Создание модели # DONE
+# Создание модели
 
 def start():
     st.session_state["stage"] = "stop"
@@ -306,3 +306,4 @@ if st.session_state["option_menu"] == "Расширить модель":
         pv_static(st.session_state["network"])
 
 #st.write(st.session_state)
+
